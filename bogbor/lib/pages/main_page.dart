@@ -1,6 +1,8 @@
 import 'package:bogbor/cached_tile_provider.dart';
+import 'package:bogbor/constraints.dart';
 import 'package:bogbor/themes.dart';
 import 'package:bogbor/widgets/bottom_nav.dart';
+import 'package:bogbor/widgets/marker.dart';
 import 'package:bogbor/widgets/ontapscale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +36,39 @@ class _MainPageState extends State<MainPage> {
                 userAgentPackageName: 'com.ayoltaxi.client',
                 errorTileCallback: (tile, error) {},
                 tileProvider: CachedNetworkTileProvider(),
+              ),
+              MarkerLayer(
+                markers: [
+                  Marker(
+                    point: LatLng(40.385708, 71.783266),
+                    width: 50,
+                    height: 50,
+                    anchorPos: AnchorPos.align(AnchorAlign.top),
+                    rotate: true,
+                    builder: (ctx) => const MarkerWidget(
+                      color: error,
+                      icon: Icons.grade,
+                    ),
+                  ),
+                ],
+              ),
+              PolygonLayer(
+                polygons: [
+                  Polygon(
+                    color: error,
+                    borderStrokeWidth: 5,
+                    borderColor: primaryColor,
+                    isFilled: true,
+                    strokeCap: StrokeCap.square,
+                    points: [
+                      LatLng(40.532626, 71.7158532),
+                      LatLng(40.5324833, 71.7158961),
+                      LatLng(40.5324629, 71.7161375),
+                      LatLng(40.5325363, 71.7161268),
+                      LatLng(40.532626, 71.7158532),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -108,7 +143,7 @@ class _MainPageState extends State<MainPage> {
       onPointerDown: (event, point) {},
       zoom: 14,
       maxZoom: 18,
-      center: LatLng(40.385708, 71.783266),
+      center: LatLng(40.532626, 71.7158532),
       interactiveFlags: InteractiveFlag.pinchZoom |
           InteractiveFlag.drag |
           InteractiveFlag.pinchMove,

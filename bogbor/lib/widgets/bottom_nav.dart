@@ -12,13 +12,8 @@ class BottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(24),
-      child: BackdropFilter(
-        filter: ImageFilter.blur(
-          sigmaX: 9.0,
-          sigmaY: 9.0,
-        ),
-        child: Container(
-          decoration: BoxDecoration(
+      child: Container(
+        decoration: BoxDecoration(
             border: Border.all(
               width: 1,
               color: Theme.of(context).textTheme.bodyLarge!.color!.withAlpha(
@@ -26,43 +21,41 @@ class BottomNavigation extends StatelessWidget {
                   ),
             ),
             borderRadius: BorderRadius.circular(24),
-            gradient: primaryGradinet
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 10,
-          ),
-          child: Row(
-            children: [
-              BottomNavBtn(
-                icon: CupertinoIcons.compass,
-                onTap: () {},
-                isSelected: true,
-              ),
-              BottomNavBtn(
-                icon: CupertinoIcons.rectangle_grid_1x2,
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   CupertinoPageRoute(
-                  //     builder: (context) => MeetingsScrean()
-                  //   ),
-                  // );
-                },
-                isSelected: false,
-              ),
-              BottomNavBtn(
-                icon: CupertinoIcons.chat_bubble_2,
-                onTap: () {},
-                isSelected: false,
-              ),
-              BottomNavBtn(
-                icon: CupertinoIcons.person,
-                onTap: () {},
-                isSelected: false,
-              ),
-            ],
-          ),
+            gradient: primaryGradinet),
+        padding: const EdgeInsets.symmetric(
+          horizontal: 0,
+          vertical: 10,
+        ),
+        child: Row(
+          children: [
+            BottomNavBtn(
+              icon: CupertinoIcons.compass,
+              onTap: () {},
+              isSelected: true,
+            ),
+            BottomNavBtn(
+              icon: CupertinoIcons.rectangle_grid_1x2,
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   CupertinoPageRoute(
+                //     builder: (context) => MeetingsScrean()
+                //   ),
+                // );
+              },
+              isSelected: false,
+            ),
+            BottomNavBtn(
+              icon: CupertinoIcons.chat_bubble_2,
+              onTap: () {},
+              isSelected: false,
+            ),
+            BottomNavBtn(
+              icon: CupertinoIcons.person,
+              onTap: () {},
+              isSelected: false,
+            ),
+          ],
         ),
       ),
     );
@@ -90,9 +83,7 @@ class BottomNavBtn extends StatelessWidget {
           padding: const EdgeInsets.all(2),
           child: Icon(
             icon,
-            color: isSelected
-                ? Colors.white
-                : Colors.white.withAlpha(150),
+            color: isSelected ? Colors.white : Colors.white.withAlpha(150),
             shadows: [
               Shadow(
                 color: Colors.white.withAlpha(40),
