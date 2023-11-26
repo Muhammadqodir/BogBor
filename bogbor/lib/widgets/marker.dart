@@ -3,10 +3,11 @@ import 'package:bogbor/widgets/ontapscale.dart';
 import 'package:flutter/material.dart';
 
 class MarkerWidget extends StatelessWidget {
-  const MarkerWidget({super.key, required this.color, required this.icon});
+  const MarkerWidget({super.key, required this.onTap, required this.color, required this.icon});
 
   final Color color;
-  final IconData icon;
+  final String icon;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +21,15 @@ class MarkerWidget extends StatelessWidget {
           Positioned(
             top: 10,
             left: 10,
-            child: Icon(
+            child: Image.asset(
               icon,
-              color: Colors.white,
+              width: 24,
+              height: 24,
             ),
           )
         ],
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

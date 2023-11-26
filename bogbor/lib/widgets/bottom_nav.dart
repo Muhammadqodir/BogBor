@@ -6,7 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavigation extends StatelessWidget {
-  const BottomNavigation({super.key});
+  const BottomNavigation({
+    super.key,
+    required this.onSelect,
+    required this.selected,
+  });
+
+  final Function(int) onSelect;
+  final int selected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,30 +37,27 @@ class BottomNavigation extends StatelessWidget {
           children: [
             BottomNavBtn(
               icon: CupertinoIcons.compass,
-              onTap: () {},
-              isSelected: true,
+              onTap: () {
+                onSelect(0);
+              },
+              isSelected: selected == 0,
             ),
             BottomNavBtn(
               icon: CupertinoIcons.rectangle_grid_1x2,
               onTap: () {
-                // Navigator.push(
-                //   context,
-                //   CupertinoPageRoute(
-                //     builder: (context) => MeetingsScrean()
-                //   ),
-                // );
+                onSelect(1);
               },
-              isSelected: false,
+              isSelected: selected == 1,
             ),
             BottomNavBtn(
               icon: CupertinoIcons.chat_bubble_2,
               onTap: () {},
-              isSelected: false,
+              isSelected: selected == 2,
             ),
             BottomNavBtn(
               icon: CupertinoIcons.person,
               onTap: () {},
-              isSelected: false,
+              isSelected: selected == 3,
             ),
           ],
         ),
