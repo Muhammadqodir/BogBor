@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bogbor/cached_tile_provider.dart';
 import 'package:bogbor/constraints.dart';
 import 'package:bogbor/cubit/gardens_cubit.dart';
@@ -61,8 +63,10 @@ class _MainPageState extends State<MainPage> {
                     polygons: gardens
                         .map(
                           (e) => Polygon(
-                            color: (filter[e.type]!["color"] as Color)
-                                .withAlpha(100),
+                            color: filter[e.type] != null
+                                ? (filter[e.type]!["color"] as Color)
+                                    .withAlpha(100)
+                                : Colors.grey.withAlpha(100),
                             borderStrokeWidth: 3,
                             borderColor: filter[e.type]!["color"] as Color,
                             isFilled: true,
@@ -105,7 +109,9 @@ class _MainPageState extends State<MainPage> {
           Positioned(
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: Platform.isAndroid
+                    ? const EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+                    : const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
                   children: [
                     ClipRRect(
@@ -157,7 +163,9 @@ class _MainPageState extends State<MainPage> {
             child: SafeArea(
               top: false,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: Platform.isAndroid
+                    ? const EdgeInsets.symmetric(horizontal: 16, vertical: 16)
+                    : const EdgeInsets.symmetric(horizontal: 16),
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: BottomNavigation(

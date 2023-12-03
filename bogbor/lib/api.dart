@@ -20,6 +20,7 @@ class Api {
         }
         list.add(Garden(
           city: element["location"] ?? "undefined",
+          age: int.parse(element["age"]) ?? 2,
           area: area,
           count: int.parse(element["count"]) ?? 0,
           type: (element["title"] as String).capitalize(),

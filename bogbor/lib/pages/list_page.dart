@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:bogbor/cubit/gardens_cubit.dart';
@@ -33,7 +34,7 @@ class _ListPageState extends State<ListPage> {
                 sigmaY: 9.0,
               ),
               child: Container(
-                height: 120,
+                height: Platform.isAndroid ? 100 : 120,
               ),
             ),
           ),

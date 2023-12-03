@@ -1,4 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
+import 'package:bogbor/capitalize.dart';
 import 'package:bogbor/constraints.dart';
 import 'package:bogbor/icons.dart';
 import 'package:bogbor/themes.dart';
@@ -14,6 +17,7 @@ class Garden {
   int count;
   String type;
   String sort;
+  int age;
   String status;
   String description;
   String price;
@@ -21,6 +25,7 @@ class Garden {
   String phone;
   Garden({
     required this.city,
+    required this.age,
     required this.area,
     required this.count,
     required this.type,
@@ -48,20 +53,35 @@ class Garden {
     return LatLng(centerLatitude, centerLongitude);
   }
 
-  double calculatePolygonArea(List<LatLng> polygon) {
-    int numberOfPoints = polygon.length;
+  double calculateArea(){
+    final int numberOfPoints = this.area.length;
+  double area = 0.0;
 
-    double sum = 0.0;
+  if (numberOfPoints > 2) {
     for (int i = 0; i < numberOfPoints; i++) {
-      final currentPoint = polygon[i];
-      final nextPoint = polygon[(i + 1) % numberOfPoints];
+      final LatLng point1 = this.area[i];
+      final LatLng point2 = this.area[(i + 1) % numberOfPoints];
 
-      sum += (currentPoint.latitude * nextPoint.longitude) -
-          (currentPoint.latitude * nextPoint.longitude);
+      final double lat1 = point1.latitude * pi / 180.0;
+      final double lon1 = point1.longitude * pi / 180.0;
+      final double lat2 = point2.latitude * pi / 180.0;
+      final double lon2 = point2.longitude * pi / 180.0;
+
+      final double dLon = lon2 - lon1;
+      final double dLat = lat2 - lat1;
+
+      final double a = pow(sin(dLat / 2), 2) +
+          cos(lat1) * cos(lat2) * pow(sin(dLon / 2), 2);
+      final double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+      // Earth's radius in meters
+      const double radius = 6371000;
+
+      area += radius * radius * c;
     }
+  }
 
-    double area = 0.5 * sum.abs();
-    return area;
+  return area.abs() / 2000000;
   }
 
   double distanceTo() {
@@ -119,13 +139,14 @@ class Garden {
                   width: 12,
                 ),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       type,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
-                      sort,
+                      sort.capitalize(),
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
